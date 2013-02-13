@@ -72,3 +72,32 @@ class TimeField(DateTimeField):
                 self.data = None
                 raise ValueError(self.gettext('Not a valid time value'))
 
+
+# Bootstrap-specific widgets
+class CheckboxLabel(Label):
+    def __init__(self, field_id, text, field):
+        super(CheckboxLabel, self).__init__(field_id, text)
+        self.field = field
+
+    def __call__(self, text=None, **kwargs):
+        if 'for_' in kwargs:
+            kwargs['for'] = kwargs.pop('for_')
+        else:
+            kwargs.setdefault('for', self.field_id)
+
+        if 'class' in kwargs:
+            kwargs['class'] = 'checkbox ' + kwargs['class']
+
+        attributes = widgets.html_params(**kwargs)
+        return HTMLString('<label %s>%s %s</label>' % (attributes,
+            self.field(), text or self.text))
+
+
+class BooleanField(fields.BooleanField):
+    def __init__(self, label=None, validators=None, **kwargs):
+        super(BooleanField, self).__init__(label, validators, **kwargs)
+        self.label = CheckboxLabel(self.id, self.label.text, self)
+
+    def __call__(self, **kwargs):
+        return self.label(**kwargs)
+
