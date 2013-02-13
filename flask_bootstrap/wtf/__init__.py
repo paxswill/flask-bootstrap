@@ -98,3 +98,22 @@ class BooleanField(fields.BooleanField):
 
         return self._label(text=(self.widget(self)+self._label.text), **kwargs)
 
+
+class RadioListWidget(widgets.ListWidget):
+    def __call__(self, field, **kwargs):
+        kwargs.setdefault('id', field.id)
+        if 'class' in kwargs:
+            kwargs['class'] = 'radio ' + kwargs['class']
+        else:
+            kwargs.setdefault('class', 'radio')
+
+        html = []
+        for subfield in field:
+            html.append(subfield.label(text=(subfield()+subfield.label.text),
+                **kwargs))
+        return HTMLString(''.join(html))
+
+
+class RadioField(fields.RadioField):
+    widget = RadioListWidget()
+
