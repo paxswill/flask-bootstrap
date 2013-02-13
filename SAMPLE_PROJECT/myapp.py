@@ -5,6 +5,7 @@ from flask import Flask, render_template
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.wtf import Form, TextField, HiddenField, ValidationError,\
                           Required, RecaptchaField
+from flask.ext.bootstrap.wtf import BooleanField
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -20,6 +21,7 @@ class ExampleForm(Form):
     field1 = TextField('First Field', description='This is field one.')
     field2 = TextField('Second Field', description='This is field two.',
                        validators=[Required()])
+    field3 = BooleanField('Third Field', description='This is field three.')
     hidden_field = HiddenField('You cannot see this', description='Nope')
     recaptcha = RecaptchaField('A sample recaptcha field')
 
