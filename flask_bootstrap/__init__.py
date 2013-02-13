@@ -4,13 +4,13 @@
 from flask import Blueprint, current_app, url_for
 
 try:
-    from wtforms.fields import HiddenField
+    from wtforms.widgets import HiddenInput
 except ImportError:
-    def is_hidden_field_filter(field):
+    def is_hidden_test(field):
         raise RuntimeError('WTForms is not installed.')
 else:
-    def is_hidden_field_filter(field):
-        return isinstance(field, HiddenField)
+    def is_hidden_test(field):
+        return isinstance(field.widget, HiddenInput)
 
 
 def bootstrap_find_resource(filename,
@@ -67,7 +67,6 @@ class Bootstrap(object):
 
         app.register_blueprint(blueprint)
 
-        app.jinja_env.filters['bootstrap_is_hidden_field'] =\
-            is_hidden_field_filter
+        app.jinja_env.tests['hidden'] = is_hidden_test
         app.jinja_env.filters['bootstrap_find_resource'] =\
             bootstrap_find_resource
