@@ -5,12 +5,26 @@ from flask import Blueprint, current_app, url_for
 
 try:
     from wtforms.widgets import HiddenInput
+    from .wtf import Button, ButtonInput, SubmitButton, SubmitInput
 except ImportError:
     def is_hidden_test(field):
+        raise RuntimeError('WTForms is not installed.')
+
+    def is_button_test(field):
         raise RuntimeError('WTForms is not installed.')
 else:
     def is_hidden_test(field):
         return isinstance(field.widget, HiddenInput)
+
+    def is_button_test(field, submit=True):
+        only_submit = isinstance(field.widget, (SubmitButton, SubmitInput))
+        all_buttons = isinstance(field.widget, (Button, ButtonInput))
+        if submit == 'only':
+            return only_submit
+        elif submit:
+            return all_buttons
+        else:
+            return all_buttons and not only_submit
 
 
 def bootstrap_find_resource(filename,
@@ -68,5 +82,6 @@ class Bootstrap(object):
         app.register_blueprint(blueprint)
 
         app.jinja_env.tests['hidden'] = is_hidden_test
+        app.jinja_env.tests['button'] = is_button_test
         app.jinja_env.filters['bootstrap_find_resource'] =\
             bootstrap_find_resource

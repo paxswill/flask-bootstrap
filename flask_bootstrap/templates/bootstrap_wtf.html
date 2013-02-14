@@ -21,11 +21,21 @@
 </div>
 {% endmacro %}
 
+{%- macro form_actions(form) %}
+<div class="form-actions">
+  {% for field in form if field is button(submit='only') %}
+  {{ field }}
+  {%- endfor %}
+  {% for field in form if field is button(submit=False) %}
+  {{ field }}
+  {%- endfor %}
+</div>
+{%- endmacro %}
+
 {% macro form_errors(form, hiddens=True) %}
 {%- if form.errors %}
-{%- for fieldname, errors in form.errors.iteritems() %}
-{%- if (form[fieldname] is hidden and hiddens) or
-       (form[fieldname] is hidden and hiddens != 'only') %}
+{%- for fieldname, errors in form.errors.iteritems() if form[fieldname] is hidden %}
+{%- if hiddens or hiddens != 'only' %}
 {%- for error in errors %}
 <p class="error">{{error}}</p>
 {%- endfor %}
@@ -34,19 +44,13 @@
 {%- endif %}
 {%- endmacro %}
 
-{% macro quick_form(form, action=".", method="post", class="form form-horizontal", buttons = [('submit', 'primary', 'Save')]) %}
+{% macro quick_form(form, action=".", method="post", class="form form-horizontal") %}
 <form action="{{action}}" method="post" class="{{class}}">
   {{ form.hidden_tag() }}
   {{ form_errors(form, 'only') }}
-  {%- for field in form %}
-  {% if not field is hidden %}
+  {%- for field in form if (field is not hidden and field is not button) %}
   {{ horizontal_field(field) }}
-  {%- endif %}
   {%- endfor %}
-  <div class="form-actions">
-  {% for name, type, text in buttons %}
-    <button name="{{name}}" type="submit" class="btn btn-{{type}}">{{text}}</button>
-  {%- endfor %}
-  </div>
+  {{ form_actions(form) }}
 </form>
 {%- endmacro %}
