@@ -122,3 +122,56 @@ class RadioListWidget(widgets.ListWidget):
 class RadioField(fields.RadioField):
     widget = RadioListWidget()
 
+
+# Buttons, both <button> and <input> varieties
+class Button(object):
+    button_type = 'button'
+    def __call__(self, field, **kwargs):
+        kwargs.setdefault('id', field.id)
+        kwargs.setdefault('type', self.button_type)
+        _require_class('btn', kwargs)
+        kwargs['name'] = field.name
+
+        return HTMLString('<button %s>%s</button>' %
+                         (widgets.html_params(**kwargs), field.label.text))
+
+
+class SubmitButton(Button):
+    button_type = 'submit'
+
+    def __call__(self, field, **kwargs):
+        _require_class('btn-primary', kwargs)
+        return super(SubmitButton, self).__call__(field, **kwargs)
+
+
+class ButtonInput(widgets.SubmitInput):
+    input_type = 'button'
+
+    def __call__(self, field, **kwargs):
+        _require_class('btn', kwargs)
+        return super(ButtonInput, self).__call__(field, **kwargs)
+
+
+class SubmitInput(ButtonInput):
+    input_type = 'submit'
+
+    def __call__(self, field, **kwargs):
+        _require_class('btn-primary', kwargs)
+        return super(SubmitInput, self).__call__(field, **kwargs)
+
+
+class ButtonField(DummyLabelMixin, fields.Field):
+    widget = Button()
+
+
+class SubmitButtonField(ButtonField):
+    widget = SubmitButton()
+
+
+class ButtonInputField(DummyLabelMixin, fields.SubmitField):
+    widget = ButtonInput()
+
+
+class SubmitField(ButtonInputField):
+    widget = SubmitInput()
+
