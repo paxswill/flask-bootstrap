@@ -75,37 +75,42 @@ class TimeField(DateTimeField):
                 raise ValueError(self.gettext('Not a valid time value'))
 
 
-# Bootstrap-specific widgets
+# Helper class and function
 class DummyLabel(Label):
-    def __init__(self, **kwargs):
-        pass
+    def __init__(self, label):
+        self.label = label
+        self.text = self.label.text
+        self.field_id = self.label.field_id
 
     def __call__(self, **kwargs):
         return ''
 
 
-class BooleanField(fields.BooleanField):
-    def __init__(self, label=None, validators=None, **kwargs):
-        super(BooleanField, self).__init__(label, validators, **kwargs)
-        self._label = self.label
-        self.label = DummyLabel()
+class DummyLabelMixin(object):
+    def __init__(self, *varargs, **kwargs):
+        super(DummyLabelMixin, self).__init__(*varargs, **kwargs)
+        self.label = DummyLabel(self.label)
 
+
+def _require_class(classes, kwargs):
+    if 'class' in kwargs:
+        kwargs['class'] += ' ' + classes
+    else:
+        kwargs['class'] = classes
+
+
+# Fields that need the <input> within the <label> elements
+class BooleanField(DummyLabelMixin, fields.BooleanField):
     def __call__(self, **kwargs):
-        if 'class' in kwargs:
-            kwargs['class'] = 'checkbox ' + kwargs['class']
-        else:
-            kwargs.setdefault('class', 'checkbox')
-
-        return self._label(text=(self.widget(self)+self._label.text), **kwargs)
+        _require_class('checkbox', kwargs)
+        return self.label.label(text=(self.widget(self)+self.label.text),
+                                **kwargs)
 
 
 class RadioListWidget(widgets.ListWidget):
     def __call__(self, field, **kwargs):
         kwargs.setdefault('id', field.id)
-        if 'class' in kwargs:
-            kwargs['class'] = 'radio ' + kwargs['class']
-        else:
-            kwargs.setdefault('class', 'radio')
+        _require_class('radio', kwargs)
 
         html = []
         for subfield in field:
