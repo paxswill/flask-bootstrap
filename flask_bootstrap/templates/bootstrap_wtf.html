@@ -1,3 +1,13 @@
+{% macro description_or_errors(field) %}
+{% for error in field.errors %}
+<p class="help-block">{{ error }}</p>
+{% else %}
+{% if field.description %}
+<p class="help-block">{{ field.description|safe }}</p>
+{% endif %}
+{% endfor %}
+{% endmacro %}
+
 {%- macro inline_field(field) %}
 {%- with required = "required" if kwargs['required'] or field.flags.required else "" -%}
 {{field(placeholder=field.label.text, required=required, **kwargs)}}
@@ -9,14 +19,7 @@
   {{field.label(class="control-label")}}
   <div class="controls">
     {{field(**kwargs)|safe}}
-
-    {%- if field.errors %}
-      {%- for error in field.errors %}
-        <p class="help-block">{{error}}</p>
-      {%- endfor %}
-    {%- elif field.description -%}
-      <p class="help-block">{{field.description|safe}}</p>
-    {%- endif %}
+    {{ description_or_errors(field) }}
   </div>
 </div>
 {% endmacro %}
