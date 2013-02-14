@@ -24,6 +24,10 @@
 </div>
 {% endmacro %}
 
+{% macro default_field(field) %}
+{{ field.label }}{{ field }}{{ description_or_errors(field) }}
+{% endmacro %}
+
 {%- macro form_actions(form) %}
 <div class="form-actions">
   {% for field in form if field is button(submit='only') %}
@@ -52,8 +56,23 @@
   {{ form.hidden_tag() }}
   {{ form_errors(form, 'only') }}
   {%- for field in form if (field is not hidden and field is not button) %}
+  {% if 'form-horizontal' in class %}
   {{ horizontal_field(field) }}
+  {% elif 'form-inline' in class %}
+  {{ inline_field(field) }}
+  {% else %}
+  {{ default_field(field) }}
+  {% endif %}
   {%- endfor %}
+  {% if 'form-inline' in class %}
+  {% for field in form if field is button(submit='only') %}
+  {{ field }}
+  {% endfor %}
+  {% for field in form if field is button(submit=False) %}
+  {{ field }}
+  {% endfor %}
+  {% else %}
   {{ form_actions(form) }}
+  {% endif %}
 </form>
 {%- endmacro %}

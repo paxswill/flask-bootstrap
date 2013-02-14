@@ -70,6 +70,9 @@
           <h3>The same form rendered using quick_form, including the ReCaptcha field</h3>
 
           {{ wtf.quick_form(form) }}
+
+          <h3>quick_form for inline elements!</h3>
+          {{ wtf.quick_form(login, class="form-inline") }}
         </div>
       </div>
 

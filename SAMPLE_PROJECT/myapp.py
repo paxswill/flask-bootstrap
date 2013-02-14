@@ -4,9 +4,10 @@
 from flask import Flask, render_template
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.wtf import Form, HiddenField, ValidationError,\
-                          Required, RecaptchaField
+                          Required, RecaptchaField, PasswordField
 from flask.ext.bootstrap.wtf import BooleanField, RadioField, ButtonField,\
-                                    SubmitField, TextField
+                                    SubmitField, TextField, EmailField,\
+                                    SubmitButtonField
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -36,12 +37,20 @@ class ExampleForm(Form):
         raise ValidationError('Always wrong')
 
 
+class LoginForm(Form):
+    email = EmailField('Email')
+    password = PasswordField('Password')
+    remember = BooleanField('Remember Me')
+    signin = SubmitButtonField('Sign in')
+
+
 @app.route('/', methods=('GET', 'POST',))
 def index():
     form = ExampleForm()
+    login = LoginForm()
     if form.validate_on_submit():
         return "PASSED"
-    return render_template('example.html', form=form)
+    return render_template('example.html', form=form, login=login)
 
 
 if '__main__' == __name__:
