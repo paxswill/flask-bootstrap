@@ -18,43 +18,43 @@ class PlaceholderMixin(object):
 
 
 class DateTimeInput(widgets.Input):
-    input = 'datetime'
+    input_type = 'datetime'
 
 
 class DateInput(widgets.Input):
-    input = 'date'
+    input_type = 'date'
 
 
 class MonthInput(widgets.Input):
-    input = 'month'
+    input_type = 'month'
 
 
 class WeekInput(widgets.Input):
-    input = 'week'
+    input_type = 'week'
 
 
 class TimeInput(widgets.Input):
-    input = 'time'
+    input_type = 'time'
 
 
 class EmailInput(widgets.Input):
-    input = 'email'
+    input_type = 'email'
 
 
 class RangeInput(widgets.Input):
-    input = 'range'
+    input_type = 'range'
 
 
 class SearchInput(widgets.Input):
-    input = 'search'
+    input_type = 'search'
 
 
 class TelephoneInput(widgets.Input):
-    input = 'tel'
+    input_type = 'tel'
 
 
 class URLInput(widgets.Input):
-    input = 'url'
+    input_type = 'url'
 
 
 class DateTimeField(fields.DateTimeField):
