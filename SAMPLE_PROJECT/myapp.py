@@ -4,10 +4,10 @@
 from flask import Flask, render_template
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.wtf import Form, HiddenField, ValidationError,\
-                          Required, RecaptchaField, PasswordField
+                          Required, RecaptchaField
 from flask.ext.bootstrap.wtf import BooleanField, RadioField, ButtonField,\
                                     SubmitField, TextField, EmailField,\
-                                    SubmitButtonField
+                                    SubmitButtonField, PasswordField
 
 app = Flask(__name__)
 Bootstrap(app)

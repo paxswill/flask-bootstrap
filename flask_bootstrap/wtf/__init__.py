@@ -17,44 +17,75 @@ class PlaceholderMixin(object):
         return super(PlaceholderMixin, self).__call__(**kwargs)
 
 
-class DateTimeInput(widgets.Input):
+class RequireableInput(widgets.Input):
+    def __call__(self, field, **kwargs):
+        if field.flags.required:
+            kwargs.setdefault('required', '')
+        return super(RequireableInput, self).__call__(field, **kwargs)
+
+
+class TextInput(RequireableInput, widgets.TextInput):
+    pass
+
+
+class PasswordInput(RequireableInput, widgets.PasswordInput):
+    pass
+
+
+class CheckboxInput(RequireableInput, widgets.CheckboxInput):
+    pass
+
+
+class TextArea(RequireableInput, widgets.TextArea):
+    pass
+
+
+class RadioInput(RequireableInput, widgets.RadioInput):
+    pass
+
+
+class DateTimeInput(RequireableInput):
     input_type = 'datetime'
 
 
-class DateInput(widgets.Input):
+class DateInput(RequireableInput):
     input_type = 'date'
 
 
-class MonthInput(widgets.Input):
+class MonthInput(RequireableInput):
     input_type = 'month'
 
 
-class WeekInput(widgets.Input):
+class WeekInput(RequireableInput):
     input_type = 'week'
 
 
-class TimeInput(widgets.Input):
+class TimeInput(RequireableInput):
     input_type = 'time'
 
 
-class EmailInput(widgets.Input):
+class EmailInput(RequireableInput):
     input_type = 'email'
 
 
-class RangeInput(widgets.Input):
+class RangeInput(RequireableInput):
     input_type = 'range'
 
 
-class SearchInput(widgets.Input):
+class SearchInput(RequireableInput):
     input_type = 'search'
 
 
-class TelephoneInput(widgets.Input):
+class TelephoneInput(RequireableInput):
     input_type = 'tel'
 
 
-class URLInput(widgets.Input):
+class URLInput(RequireableInput):
     input_type = 'url'
+
+
+class NumberInput(RequireableInput):
+    input_type = 'number'
 
 
 class DateTimeField(fields.DateTimeField):
@@ -82,12 +113,24 @@ class TimeField(DateTimeField):
                 raise ValueError(self.gettext('Not a valid time value'))
 
 
+class IntegerField(RequireableInput, fields.IntegerField):
+    widget = NumberInput()
+
+
+class FloatField(RequireableInput, fields.FloatField):
+    widget = NumberInput()
+
+
+class DecimalField(RequireableInput, fields.DecimalField):
+    widget = NumberInput()
+
+
 class StringField(PlaceholderMixin, fields.StringField):
-    pass
+    widget = TextInput()
 
 
 class TextField(PlaceholderMixin, fields.TextField):
-    pass
+    widget = TextInput()
 
 
 class SearchField(StringField):
@@ -104,6 +147,10 @@ class URLField(StringField):
 
 class EmailField(StringField):
     widget = EmailInput()
+
+
+class PasswordField(PlaceholderMixin, fields.PasswordField):
+    widget = PasswordInput()
 
 
 # Helper class and function
@@ -152,6 +199,7 @@ class RadioListWidget(widgets.ListWidget):
 
 class RadioField(fields.RadioField):
     widget = RadioListWidget()
+    option_widget = RadioInput()
 
 
 # Buttons, both <button> and <input> varieties
