@@ -3,50 +3,46 @@ from __future__ import unicode_literals
 import datetime
 
 from wtforms import fields, widgets
-from wtforms.fields import (Label, Field, DecimalField, FloatField,
-        IntegerField, StringField, TextField, TextAreaField)
-from wtforms.widgets import (TextInput, CheckboxInput, TextArea, Select, Input,
-        HTMLString)
 
 
 # HTML5 input types
-class DateTimeInput(Input):
+class DateTimeInput(widgets.Input):
     input = 'datetime'
 
 
-class DateInput(Input):
+class DateInput(widgets.Input):
     input = 'date'
 
 
-class MonthInput(Input):
+class MonthInput(widgets.Input):
     input = 'month'
 
 
-class WeekInput(Input):
+class WeekInput(widgets.Input):
     input = 'week'
 
 
-class TimeInput(Input):
+class TimeInput(widgets.Input):
     input = 'time'
 
 
-class EmailInput(Input):
+class EmailInput(widgets.Input):
     input = 'email'
 
 
-class RangeInput(Input):
+class RangeInput(widgets.Input):
     input = 'range'
 
 
-class SearchInput(Input):
+class SearchInput(widgets.Input):
     input = 'search'
 
 
-class TelephoneInput(Input):
+class TelephoneInput(widgets.Input):
     input = 'tel'
 
 
-class URLInput(Input):
+class URLInput(widgets.Input):
     input = 'url'
 
 
@@ -76,7 +72,7 @@ class TimeField(DateTimeField):
 
 
 # Helper class and function
-class DummyLabel(Label):
+class DummyLabel(fields.Label):
     def __init__(self, label):
         self.label = label
         self.text = self.label.text
@@ -116,7 +112,7 @@ class RadioListWidget(widgets.ListWidget):
         for subfield in field:
             html.append(subfield.label(text=(subfield()+subfield.label.text),
                 **kwargs))
-        return HTMLString(''.join(html))
+        return widgets.HTMLString(''.join(html))
 
 
 class RadioField(fields.RadioField):
@@ -132,7 +128,7 @@ class Button(object):
         _require_class('btn', kwargs)
         kwargs['name'] = field.name
 
-        return HTMLString('<button %s>%s</button>' %
+        return widgets.HTMLString('<button %s>%s</button>' %
                          (widgets.html_params(**kwargs), field.label.text))
 
 
