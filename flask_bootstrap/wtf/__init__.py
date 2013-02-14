@@ -6,6 +6,17 @@ from wtforms import fields, widgets
 
 
 # HTML5 input types
+class PlaceholderMixin(object):
+    def __init__(self, *varargs, **kwargs):
+        self.placeholder = kwargs.pop('placeholder', None)
+        super(PlaceholderMixin, self).__init__(*varargs, **kwargs)
+
+    def __call__(self, **kwargs):
+        if self.placeholder:
+            kwargs.setdefault('placeholder', self.placeholder)
+        return super(PlaceholderMixin, self).__call__(**kwargs)
+
+
 class DateTimeInput(widgets.Input):
     input = 'datetime'
 
@@ -69,6 +80,30 @@ class TimeField(DateTimeField):
             except ValueError:
                 self.data = None
                 raise ValueError(self.gettext('Not a valid time value'))
+
+
+class StringField(PlaceholderMixin, fields.StringField):
+    pass
+
+
+class TextField(PlaceholderMixin, fields.TextField):
+    pass
+
+
+class SearchField(StringField):
+    widget = SearchInput()
+
+
+class TelephoneField(StringField):
+    widget = TelephoneInput()
+
+
+class URLField(StringField):
+    widget = URLInput()
+
+
+class EmailField(StringField):
+    widget = EmailInput()
 
 
 # Helper class and function

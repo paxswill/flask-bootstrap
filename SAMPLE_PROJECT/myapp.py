@@ -3,10 +3,10 @@
 
 from flask import Flask, render_template
 from flask.ext.bootstrap import Bootstrap
-from flask.ext.wtf import Form, TextField, HiddenField, ValidationError,\
+from flask.ext.wtf import Form, HiddenField, ValidationError,\
                           Required, RecaptchaField
 from flask.ext.bootstrap.wtf import BooleanField, RadioField, ButtonField,\
-                                    SubmitField
+                                    SubmitField, TextField
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -19,7 +19,8 @@ app.config['RECAPTCHA_PUBLIC_KEY'] = '6Lfol9cSAAAAADAkodaYl9wvQCwBMr3qGR_PPHcw'
 
 
 class ExampleForm(Form):
-    field1 = TextField('First Field', description='This is field one.')
+    field1 = TextField('First Field', description='This is field one.',
+                       placeholder='A placeholder value')
     field2 = TextField('Second Field', description='This is field two.',
                        validators=[Required()])
     field3 = BooleanField('Third Field', description='This is field three.')
