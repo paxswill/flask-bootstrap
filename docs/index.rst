@@ -78,21 +78,50 @@ Configuration options
 
 There are a few configuration options used by the templates:
 
-====================================== ======================================================== ===
-Option                                 Default
-====================================== ======================================================== ===
-``BOOTSTRAP_USE_MINIFIED``             ``True``                                                 Whether or not to use the minified versions of the css/js files.
-``BOOTSTRAP_JQUERY_VERSION``           ``'1'``                                                  This version of jQuery is included in the template via Google CDN. Also honors ``BOOTSTRAP_USE_MINIFIED``. Set this to ``None`` to not include jQuery at all. Note that non-minified Bootstrap resources are sometimes missing on bootstrapcdn, so it is best not to use it without turning on ``BOOTSTRAP_USE_MINIFIED``.
-``BOOTSTRAP_HTML5_SHIM``               ``True``                                                 Include the default IE-fixes that are usually included when using bootstrap.
-``BOOTSTRAP_GOOGLE_ANALYTICS_ACCOUNT`` ``None``                                                 If set, include `Google Analytics <http://www.google.com/analytics>`_ boilerplate using this account.
-``BOOTSTRAP_USE_CDN``                  ``False``                                                If ``True``, Bootstrap resources will no be served from the local app instance, but will use a Content Delivery Network instead (configured by ``BOOTSTRAP_CDN_BASEURL``).
-``BOOTSTRAP_CDN_BASEURL``              A dictionary set up with URLs to ``cdnjs.com``.          The URLs to which Bootstrap and other filenames are appended when using a CDN.
-``BOOTSTRAP_CDN_PREFER_SSL``           ``True``                                                 If the ``BOOTSTRAP_CDN_BASEURL`` starts with ``//``, prepend ``'https:'`` to it.
-``BOOTSTRAP_FONTAWESOME``              ``False``                                                If ``True``, `FontAwesome`_ will be enabled.
-``BOOTSTRAP_CUSTOM_CSS``               ``False``                                                If ``True``, no Bootstrap CSS files will be loaded. Use this if you compile a custom css file that already includes bootstrap.
-====================================== ======================================================== ===
+====================================== ========================================
+``BOOTSTRAP_USE_MINIFIED``             Whether or not to use the minified
+                                       versions of the css/js files. Defaults
+                                       to ``True``.
+``BOOTSTRAP_JQUERY_VERSION``           This version of `jQuery`_ is included in
+                                       the template via Google CDN. Also honors
+                                       ``BOOTSTRAP_USE_MINIFIED``. Set this to
+                                       ``None`` to not include jQuery at all.
+                                       Note that non-minified Bootstrap
+                                       resources are sometimes missing on
+                                       bootstrapcdn, so it is best not to use
+                                       it without turning on
+                                       ``BOOTSTRAP_USE_MINIFIED``. Defaults to
+                                       ``'1'``.
+``BOOTSTRAP_HTML5_SHIM``               Include the default IE-fixes that are
+                                       usually included when using bootstrap.
+                                       Defaults to ``True``.
+``BOOTSTRAP_GOOGLE_ANALYTICS_ACCOUNT`` If set, include `Google Analytics`_
+                                       boilerplate using this account. Defaults
+                                       to ``True``.
+``BOOTSTRAP_USE_CDN``                  If ``True``, Bootstrap resources will
+                                       no be served from the local app
+                                       instance, but will use a Content
+                                       Delivery Network instead (configured
+                                       by ``BOOTSTRAP_CDN_BASEURL``). Defaults
+                                       to ``False``.
+``BOOTSTRAP_CDN_BASEURL``              The URLs to which Bootstrap and other
+                                       filenames are appended when using a CDN.
+                                       The default is a dictionary of URLs
+                                       pointing to `cdnjs`_.
+``BOOTSTRAP_CDN_PREFER_SSL``           If the ``BOOTSTRAP_CDN_BASEURL`` starts
+                                       with ``//``, prepend ``'https:'`` to it.
+                                       Defaults to ``True``.
+``BOOTSTRAP_FONTAWESOME``              If ``True``, `FontAwesome`_ will be
+                                       enabled. Defaults to ``False``.
+``BOOTSTRAP_CUSTOM_CSS``               If ``True``, no Bootstrap CSS files
+                                       will be loaded. Use this if you compile
+                                       a custom css file that already includes
+                                       bootstrap. Defaults to ``False``.
+====================================== ========================================
 
 .. _FontAwesome: http://fortawesome.github.com/Font-Awesome/
+.. _cdnjs: http://cdnjs.com
+.. _jquery: http://jquery.com/
 
 Installation
 ------------
