@@ -119,16 +119,22 @@ There are a few configuration options used by the templates:
                                        bootstrap. Defaults to ``False``.
 ====================================== ========================================
 
+.. versionchanged:: 2.3.0-2
+    The default CDN was changed to `cdnjs`_ from `netdna`_.
+
+.. versionchanged:: 2.2.1-1
+    ``BOOTSTRAP_CDN_BASEURL`` was changed from a string to a dictionary.
+
+.. versionchanged:: 2.0.4-4
+    Default `jQuery`_ version changed from ``'1.7.2'`` to just ``'1'``.
+
 .. versionadded:: 2.3.0-2
-    The ``BOOTSTRAP_CUSTOM_CSS`` configuration option was added. The default
-    CDN was changed to `cdnjs`_ from `netdna`_
+    The ``BOOTSTRAP_CUSTOM_CSS`` configuration option was added.
 
 .. versionadded:: 2.2.1-1
-    ``BOOTSTRAP_FONTAWESOME`` configuration option added, and
-    ``BOOTSTRAP_CDN_BASEURL`` changed to a dictionary.
+    ``BOOTSTRAP_FONTAWESOME`` was configuration option added.
 
 .. versionadded:: 2.0.4-4
-    Default `jQuery`_ version changed to ``'1'`` from ``'1.7.2'``.
     ``BOOTSTRAP_USE_CDN`` and ``BOOTSTRAP_CDN_PREFER_SSL`` options added.
 
 .. versionadded:: 2.0.3-1
