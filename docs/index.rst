@@ -119,8 +119,25 @@ There are a few configuration options used by the templates:
                                        bootstrap. Defaults to ``False``.
 ====================================== ========================================
 
+.. versionadded:: 2.3.0-2
+    The ``BOOTSTRAP_CUSTOM_CSS`` configuration option was added. The default
+    CDN was changed to `cdnjs`_ from `netdna`_
+
+.. versionadded:: 2.2.1-1
+    ``BOOTSTRAP_FONTAWESOME`` configuration option added, and
+    ``BOOTSTRAP_CDN_BASEURL`` changed to a dictionary.
+
+.. versionadded:: 2.0.4-4
+    Default `jQuery`_ version changed to ``'1'`` from ``'1.7.2'``.
+    ``BOOTSTRAP_USE_CDN`` and ``BOOTSTRAP_CDN_PREFER_SSL`` options added.
+
+.. versionadded:: 2.0.3-1
+    ``BOOTSTRAP_GOOGLE_ANALYTICS_ACCOUNT`` configuration option added.
+
+.. _Google Analytics: http://www.google.com/analytics
 .. _FontAwesome: http://fortawesome.github.com/Font-Awesome/
 .. _cdnjs: http://cdnjs.com
+.. _netdns: http://bootstrapcdn.com
 .. _jquery: http://jquery.com/
 
 Installation
