@@ -13,6 +13,22 @@ Flask-Bootstrap packages `Twitter's Bootstrap
 of a blueprint named 'bootstrap'. It can also create links to serve Bootstrap
 from a CDN.
 
+Installation
+------------
+
+Flask-Bootstrap is available from `PyPI`_ and can be installed with ``pip``
+using this command::
+
+    $ pip install Flask-Bootstrap
+
+The current development version can also be installed from GitHub using using
+``pip`` with this command::
+
+    $ pip install git+http://github.com/mbr/flask-bootstrap.git
+
+
+.. _PyPI: http://pypi.python.org/pypi/Flask-Bootstrap
+
 Usage
 -----
 
@@ -145,22 +161,6 @@ There are a few configuration options used by the templates:
 .. _cdnjs: http://cdnjs.com
 .. _netdns: http://bootstrapcdn.com
 .. _jquery: http://jquery.com/
-
-Installation
-------------
-
-Flask-Bootstrap is available from `PyPI`_ and can be installed with ``pip``
-using this command::
-
-    $ pip install Flask-Bootstrap
-
-The current development version can also be installed from GitHub using using
-``pip`` with this command::
-
-    $ pip install git+http://github.com/mbr/flask-bootstrap.git
-
-
-.. _PyPI: http://pypi.python.org/pypi/Flask-Bootstrap
 
 A note on versioning
 --------------------
