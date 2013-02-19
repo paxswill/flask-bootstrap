@@ -149,8 +149,18 @@ There are a few configuration options used by the templates:
 Installation
 ------------
 
-Either install from github using ``pip`` or from `PyPI
-<http://pypi.python.org/pypi/Flask-Bootstrap>`_.
+Flask-Bootstrap is available from `PyPI`_ and can be installed with ``pip``
+using this command::
+
+    $ pip install Flask-Bootstrap
+
+The current development version can also be installed from GitHub using using
+``pip`` with this command::
+
+    $ pip install git+http://github.com/mbr/flask-bootstrap.git
+
+
+.. _PyPI: http://pypi.python.org/pypi/Flask-Bootstrap
 
 A note on versioning
 --------------------
