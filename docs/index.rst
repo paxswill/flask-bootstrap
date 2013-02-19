@@ -32,13 +32,10 @@ with this command::
 A note on versioning
 ~~~~~~~~~~~~~~~~~~~~
 
-Flask-Bootstrap tries to keep some track of Twitter's Bootstrap releases.
-Versioning is usually in the form of ``Bootstrap version`` - ``Flask-Bootstrap
-iteration``. For example, a version of ``2.0.3-2`` bundles Bootstrap version
-``2.0.3`` and is the second release of Flask-Bootstrap containing that version.
-
-If you need to rely on your templates not changing, simply pin the version in
-your setup.py.
+Flask-Bootstrap bundles Bootstrap's releases. To show this, the version number
+is of the form ``[Bootstrap Version]-[Flask-Bootstrap Release]``. For example,
+version 2.0.3-2 bundles Bootstrap version 2.0.3 and is the second release of
+Flask-Bootstrap.
 
 Usage
 -----
