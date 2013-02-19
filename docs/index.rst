@@ -21,8 +21,8 @@ using this command::
 
     $ pip install Flask-Bootstrap
 
-The current development version can also be installed from GitHub using using
-``pip`` with this command::
+The current development version can also be installed from GitHub with ``pip``
+with this command::
 
     $ pip install git+http://github.com/mbr/flask-bootstrap.git
 
