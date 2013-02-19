@@ -48,7 +48,7 @@ for more possiblities.
 
 The url-endpoint ``bootstrap.static`` is available for refering to Bootstrap
 resources, but usually, this isn't needed. A bit better is using the
-``bootstrap_find_resource`` template filter, which will CDN settings into
+``bootstrap_find_resource`` template filter, which will take CDN settings into
 account.
 
 Macros
