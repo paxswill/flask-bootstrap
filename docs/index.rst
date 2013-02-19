@@ -29,6 +29,17 @@ with this command::
 
 .. _PyPI: http://pypi.python.org/pypi/Flask-Bootstrap
 
+A note on versioning
+~~~~~~~~~~~~~~~~~~~~
+
+Flask-Bootstrap tries to keep some track of Twitter's Bootstrap releases.
+Versioning is usually in the form of ``Bootstrap version`` - ``Flask-Bootstrap
+iteration``. For example, a version of ``2.0.3-2`` bundles Bootstrap version
+``2.0.3`` and is the second release of Flask-Bootstrap containing that version.
+
+If you need to rely on your templates not changing, simply pin the version in
+your setup.py.
+
 Usage
 -----
 
@@ -50,8 +61,6 @@ The url-endpoint ``bootstrap.static`` is available for refering to Bootstrap
 resources, but usually, this isn't needed. A bit better is using the
 ``bootstrap_find_resource`` template filter, which will take CDN settings into
 account.
-
-
 
 Configuration options
 ---------------------
@@ -125,17 +134,6 @@ There are a few configuration options used by the templates:
 .. _cdnjs: http://cdnjs.com
 .. _netdns: http://bootstrapcdn.com
 .. _jquery: http://jquery.com/
-
-A note on versioning
---------------------
-
-Flask-Bootstrap tries to keep some track of Twitter's Bootstrap releases.
-Versioning is usually in the form of ``Bootstrap version`` - ``Flask-Bootstrap
-iteration``. For example, a version of ``2.0.3-2`` bundles Bootstrap version
-``2.0.3`` and is the second release of Flask-Bootstrap containing that version.
-
-If you need to rely on your templates not changing, simply pin the version in
-your setup.py.
 
 Forms
 -----
