@@ -51,42 +51,6 @@ resources, but usually, this isn't needed. A bit better is using the
 ``bootstrap_find_resource`` template filter, which will take CDN settings into
 account.
 
-Macros
-------
-
-A few macros are available to make your life easier. These need to be imported
-(I recommend create your own "base.html" template that extends one of the
-bootstrap base templates first and including the the macros there).
-
-An example "base.html"::
-
-  {% extends "bootstrap_responsive.html" %}
-  {% import "bootstrap_wtf.html" as wtf %}
-
-Forms
-~~~~~
-
-The ``bootstrap_wtf`` template contains macros to help you output forms
-quickly. The most basic way is using them as an aid to create a form by hand::
-
-  <form class="form form-horizontal" method="post">
-    {{ form.hidden_tag() }}
-    {{ wtf.form_errors(form, "only") }}
-
-    {{ wtf.horizontal_field(form.field1) }}
-    {{ wtf.horizontal_field(form.field2) }}
-
-    <div class="form-actions">
-       <button name="action_save" type="submit" class="btn btn-primary">Save changes</button>
-    </div>
-  </form>
-
-However, often you just want to get a form done quickly and have no need for
-intense fine-tuning:
-
-::
-
-  {{ wtf.quick_form(form) }}
 
 
 Configuration options
@@ -172,6 +136,72 @@ iteration``. For example, a version of ``2.0.3-2`` bundles Bootstrap version
 
 If you need to rely on your templates not changing, simply pin the version in
 your setup.py.
+
+Forms
+-----
+
+There are a number of Jinja2 convenience macros available in the
+``bootstrap_wtf.html`` template. You can access them by importing them like
+so::
+
+    {% import "bootstrap_wtf.html" as wtf %}
+
+This lets you access the macros under the ``wtf`` namespace. The most basic way
+is using them as an aid to create a form by hand::
+
+  <form class="form form-horizontal" method="post">
+    {{ form.hidden_tag() }}
+    {{ wtf.form_errors(form, "only") }}
+
+    {{ wtf.horizontal_field(form.field1) }}
+    {{ wtf.horizontal_field(form.field2) }}
+
+    <div class="form-actions">
+       <button name="action_save" type="submit" class="btn btn-primary">Save changes</button>
+    </div>
+  </form>
+
+However, often you just want to get a form done quickly and have no need for
+intense fine-tuning:
+
+::
+
+  {{ wtf.quick_form(form) }}
+
+Macros
+~~~~~~
+
+.. py:currentmodule:: wtf
+
+.. py:function:: inline_field(field)
+
+    Render a field with Bootstrap's inline style.
+
+.. py:function:: horizontal_field(field)
+
+    Render a field using Bootstrap's horizontal style.
+
+.. py:function:: form_errors(form[, hiddens=True])
+
+    Render the validation errors for a form in a single block.
+
+    :param hiddens: show errors for normally hidden fields.
+
+.. py:function:: quick_form(form[, action=".", method="post", class="form form-horizontal", buttons=[('submit', 'primary', 'Save']])
+
+    Render a form with the fields in Bootstrap's horizontal style.
+
+    :param action: the value of the ``action`` attribute on the HTML ``<form>``
+        element
+
+    :param method: the value of the ``method`` attribute on the HTML ``<form>``
+        element
+
+    :param class: the CSS class to apply to the ``<form>`` element
+
+    :param buttons: a list of 3-tuples, with the tuples being in the form
+        (\ *name*\ , *button-type*\ , *button-text*\ ), with *button-type* being
+        a button CSS class defined by Bootstrap.
 
 CHANGES
 ~~~~~~~
