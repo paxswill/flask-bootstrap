@@ -1,0 +1,317 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Flask-Bootstrap &mdash; Flask-Bootstrap 2.3.0-3dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '2.3.0-3dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Flask-Bootstrap 2.3.0-3dev documentation" href="#" /> 
+  </head>
+  <body>
+  
+  
+  <div class=indexwrapper>
+  
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-flask_bootstrap">
+<span id="flask-bootstrap"></span><h1>Flask-Bootstrap<a class="headerlink" href="#module-flask_bootstrap" title="Permalink to this headline">¶</a></h1>
+<p>Flask-Bootstrap packages <a class="reference external" href="http://twitter.github.com/bootstrap/">Twitter&#8217;s Bootstrap</a> into an extension that mostly consists
+of a blueprint named &#8216;bootstrap&#8217;. It can also create links to serve Bootstrap
+from a CDN.</p>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Flask-Bootstrap is available from <a class="reference external" href="http://pypi.python.org/pypi/Flask-Bootstrap">PyPI</a> and can be installed with <tt class="docutils literal"><span class="pre">pip</span></tt>
+using this command:</p>
+<div class="highlight-python"><pre>$ pip install Flask-Bootstrap</pre>
+</div>
+<p>The current development version can also be installed from GitHub with <tt class="docutils literal"><span class="pre">pip</span></tt>
+with this command:</p>
+<div class="highlight-python"><pre>$ pip install git+http://github.com/mbr/flask-bootstrap.git</pre>
+</div>
+<div class="section" id="a-note-on-versioning">
+<h3>A note on versioning<a class="headerlink" href="#a-note-on-versioning" title="Permalink to this headline">¶</a></h3>
+<p>Flask-Bootstrap bundles Bootstrap&#8217;s releases. To show this, the version number
+is of the form <tt class="docutils literal"><span class="pre">[Bootstrap</span> <span class="pre">Version]-[Flask-Bootstrap</span> <span class="pre">Release]</span></tt>. For example,
+version 2.0.3-2 bundles Bootstrap version 2.0.3 and is the second release of
+Flask-Bootstrap.</p>
+</div>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>Here is an example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">flask.ext.bootstrap</span> <span class="kn">import</span> <span class="n">Bootstrap</span>
+
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+
+<span class="n">Bootstrap</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This makes some new templates available, mainly <tt class="docutils literal"><span class="pre">bootstrap_base.html</span></tt> and
+<tt class="docutils literal"><span class="pre">bootstrap_responsive.html</span></tt>. These are blank pages that include all bootstrap
+resources, and have predefined blocks where you can put your content. The core
+block to alter is <tt class="docutils literal"><span class="pre">body_content</span></tt>, otherwise see the source of the template
+for more possiblities.</p>
+<p>The url-endpoint <tt class="docutils literal"><span class="pre">bootstrap.static</span></tt> is available for refering to Bootstrap
+resources, but usually, this isn&#8217;t needed. A bit better is using the
+<tt class="docutils literal"><span class="pre">bootstrap_find_resource</span></tt> template filter, which will take CDN settings into
+account.</p>
+</div>
+<div class="section" id="configuration-options">
+<h2>Configuration options<a class="headerlink" href="#configuration-options" title="Permalink to this headline">¶</a></h2>
+<p>There are a few configuration options used by the templates:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="49%" />
+<col width="51%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">BOOTSTRAP_USE_MINIFIED</span></tt></td>
+<td>Whether or not to use the minified
+versions of the css/js files. Defaults
+to <tt class="docutils literal"><span class="pre">True</span></tt>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">BOOTSTRAP_JQUERY_VERSION</span></tt></td>
+<td>This version of <a class="reference external" href="http://jquery.com/">jQuery</a> is included in
+the template via Google CDN. Also honors
+<tt class="docutils literal"><span class="pre">BOOTSTRAP_USE_MINIFIED</span></tt>. Set this to
+<tt class="docutils literal"><span class="pre">None</span></tt> to not include jQuery at all.
+Note that non-minified Bootstrap
+resources are sometimes missing on
+bootstrapcdn, so it is best not to use
+it without turning on
+<tt class="docutils literal"><span class="pre">BOOTSTRAP_USE_MINIFIED</span></tt>. Defaults to
+<tt class="docutils literal"><span class="pre">'1'</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">BOOTSTRAP_HTML5_SHIM</span></tt></td>
+<td>Include the default IE-fixes that are
+usually included when using bootstrap.
+Defaults to <tt class="docutils literal"><span class="pre">True</span></tt>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">BOOTSTRAP_GOOGLE_ANALYTICS_ACCOUNT</span></tt></td>
+<td>If set, include <a class="reference external" href="http://www.google.com/analytics">Google Analytics</a>
+boilerplate using this account. Defaults
+to <tt class="docutils literal"><span class="pre">True</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">BOOTSTRAP_USE_CDN</span></tt></td>
+<td>If <tt class="docutils literal"><span class="pre">True</span></tt>, Bootstrap resources will
+no be served from the local app
+instance, but will use a Content
+Delivery Network instead (configured
+by <tt class="docutils literal"><span class="pre">BOOTSTRAP_CDN_BASEURL</span></tt>). Defaults
+to <tt class="docutils literal"><span class="pre">False</span></tt>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">BOOTSTRAP_CDN_BASEURL</span></tt></td>
+<td>The URLs to which Bootstrap and other
+filenames are appended when using a CDN.
+The default is a dictionary of URLs
+pointing to <a class="reference external" href="http://cdnjs.com">cdnjs</a>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">BOOTSTRAP_CDN_PREFER_SSL</span></tt></td>
+<td>If the <tt class="docutils literal"><span class="pre">BOOTSTRAP_CDN_BASEURL</span></tt> starts
+with <tt class="docutils literal"><span class="pre">//</span></tt>, prepend <tt class="docutils literal"><span class="pre">'https:'</span></tt> to it.
+Defaults to <tt class="docutils literal"><span class="pre">True</span></tt>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">BOOTSTRAP_FONTAWESOME</span></tt></td>
+<td>If <tt class="docutils literal"><span class="pre">True</span></tt>, <a class="reference external" href="http://fortawesome.github.com/Font-Awesome/">FontAwesome</a> will be
+enabled. Defaults to <tt class="docutils literal"><span class="pre">False</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">BOOTSTRAP_CUSTOM_CSS</span></tt></td>
+<td>If <tt class="docutils literal"><span class="pre">True</span></tt>, no Bootstrap CSS files
+will be loaded. Use this if you compile
+a custom css file that already includes
+bootstrap. Defaults to <tt class="docutils literal"><span class="pre">False</span></tt>.</td>
+</tr>
+</tbody>
+</table>
+<p class="versionchanged">
+<span class="versionmodified">Changed in version 2.3.0-2: </span>The default CDN was changed to <a class="reference external" href="http://cdnjs.com">cdnjs</a> from <a class="reference external" href="http://bootstrapcdn.com">netdna</a>.</p>
+<p class="versionchanged">
+<span class="versionmodified">Changed in version 2.2.1-1: </span><tt class="docutils literal"><span class="pre">BOOTSTRAP_CDN_BASEURL</span></tt> was changed from a string to a dictionary.</p>
+<p class="versionchanged">
+<span class="versionmodified">Changed in version 2.0.4-4: </span>Default <a class="reference external" href="http://jquery.com/">jQuery</a> version changed from <tt class="docutils literal"><span class="pre">'1.7.2'</span></tt> to just <tt class="docutils literal"><span class="pre">'1'</span></tt>.</p>
+<p class="versionadded">
+<span class="versionmodified">New in version 2.3.0-2: </span>The <tt class="docutils literal"><span class="pre">BOOTSTRAP_CUSTOM_CSS</span></tt> configuration option was added.</p>
+<p class="versionadded">
+<span class="versionmodified">New in version 2.2.1-1: </span><tt class="docutils literal"><span class="pre">BOOTSTRAP_FONTAWESOME</span></tt> was configuration option added.</p>
+<p class="versionadded">
+<span class="versionmodified">New in version 2.0.4-4: </span><tt class="docutils literal"><span class="pre">BOOTSTRAP_USE_CDN</span></tt> and <tt class="docutils literal"><span class="pre">BOOTSTRAP_CDN_PREFER_SSL</span></tt> options added.</p>
+<p class="versionadded">
+<span class="versionmodified">New in version 2.0.3-1: </span><tt class="docutils literal"><span class="pre">BOOTSTRAP_GOOGLE_ANALYTICS_ACCOUNT</span></tt> configuration option added.</p>
+</div>
+<div class="section" id="forms">
+<h2>Forms<a class="headerlink" href="#forms" title="Permalink to this headline">¶</a></h2>
+<p>There are a number of Jinja2 convenience macros available in the
+<tt class="docutils literal"><span class="pre">bootstrap_wtf.html</span></tt> template. You can access them by importing them like
+so:</p>
+<div class="highlight-python"><pre>{% import "bootstrap_wtf.html" as wtf %}</pre>
+</div>
+<p>This lets you access the macros under the <tt class="docutils literal"><span class="pre">wtf</span></tt> namespace. The most basic way
+is using them as an aid to create a form by hand:</p>
+<div class="highlight-python"><pre>&lt;form class="form form-horizontal" method="post"&gt;
+  {{ form.hidden_tag() }}
+  {{ wtf.form_errors(form, "only") }}
+
+  {{ wtf.horizontal_field(form.field1) }}
+  {{ wtf.horizontal_field(form.field2) }}
+
+  &lt;div class="form-actions"&gt;
+     &lt;button name="action_save" type="submit" class="btn btn-primary"&gt;Save changes&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</pre>
+</div>
+<p>However, often you just want to get a form done quickly and have no need for
+intense fine-tuning:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">wtf</span><span class="o">.</span><span class="n">quick_form</span><span class="p">(</span><span class="n">form</span><span class="p">)</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<div class="section" id="macros">
+<h3>Macros<a class="headerlink" href="#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="wtf.inline_field">
+<tt class="descclassname">wtf.</tt><tt class="descname">inline_field</tt><big>(</big><em>field</em><big>)</big><a class="headerlink" href="#wtf.inline_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render a field with Bootstrap&#8217;s inline style.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="wtf.horizontal_field">
+<tt class="descclassname">wtf.</tt><tt class="descname">horizontal_field</tt><big>(</big><em>field</em><big>)</big><a class="headerlink" href="#wtf.horizontal_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render a field using Bootstrap&#8217;s horizontal style.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="wtf.form_errors">
+<tt class="descclassname">wtf.</tt><tt class="descname">form_errors</tt><big>(</big><em>form</em><span class="optional">[</span>, <em>hiddens=True</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#wtf.form_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render the validation errors for a form in a single block.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>hiddens</strong> &#8211; show errors for normally hidden fields.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="wtf.quick_form">
+<tt class="descclassname">wtf.</tt><tt class="descname">quick_form</tt><big>(</big><em>form[, action=&quot;.&quot;, method=&quot;post&quot;, class=&quot;form form-horizontal&quot;, buttons=[('submit', 'primary', 'Save']]</em><big>)</big><a class="headerlink" href="#wtf.quick_form" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render a form with the fields in Bootstrap&#8217;s horizontal style.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>action</strong> &#8211; the value of the <tt class="docutils literal"><span class="pre">action</span></tt> attribute on the HTML <tt class="docutils literal"><span class="pre">&lt;form&gt;</span></tt>
+element</li>
+<li><strong>method</strong> &#8211; the value of the <tt class="docutils literal"><span class="pre">method</span></tt> attribute on the HTML <tt class="docutils literal"><span class="pre">&lt;form&gt;</span></tt>
+element</li>
+<li><strong>class</strong> &#8211; the CSS class to apply to the <tt class="docutils literal"><span class="pre">&lt;form&gt;</span></tt> element</li>
+<li><strong>buttons</strong> &#8211; a list of 3-tuples, with the tuples being in the form
+(<em>name</em>, <em>button-type</em>, <em>button-text</em>), with <em>button-type</em> being
+a button CSS class defined by Bootstrap.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="changes">
+<h3>CHANGES<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h3>
+<p>The following changes could have possibly been not backwards compatible:</p>
+<div class="section" id="id1">
+<h4>2.1.0-1<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>New upstream release: 2.1.0.</li>
+<li>Changed the default version of jQuery from 1.7.2 to just 1. This means that
+the latest 1.x.x version of jQuery will be pulled.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h4>2.1.1-1<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>WTForms generated HTML code is now considered safe. This allows Flask-WTF&#8217;s
+<tt class="docutils literal"><span class="pre">RecaptchaField</span></tt> to work with <tt class="docutils literal"><span class="pre">quick_form</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h4>2.1.1-2<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>There is no longer a self.app on Flask-Bootstrap. The extension can be shared
+by any number of applications using <tt class="docutils literal"><span class="pre">init_app()</span></tt> (though the old
+<tt class="docutils literal"><span class="pre">__init__()</span></tt> signature is kept for backward compatibiliy).</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h4>2.2.1-1<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><a class="reference external" href="http://fortawesome.github.com/Font-Awesome/">FontAwesome</a> is now supported
+as well, can also be loaded from bootstrapCDN. Set <tt class="docutils literal"><span class="pre">BOOTSTRAP_FONTAWESOME</span></tt>
+to <tt class="docutils literal"><span class="pre">True</span></tt> to enable it.</li>
+<li><tt class="docutils literal"><span class="pre">BOOTSTRAP_CDN_BASEURL</span></tt> is now a dictionary for multiple CDNs (i.e.
+Bootstrap, FontAwesome can use different base URLs). This will break any code
+that relied on setting <tt class="docutils literal"><span class="pre">BOOTSTRAP_CDN_BASEURL</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h4>2.2.2-1<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><a class="reference external" href="http://fortawesome.github.com/Font-Awesome/">FontAwesome</a> now version 3.0 instead of 2.0.</li>
+<li>The <tt class="docutils literal"><span class="pre">navbar()</span></tt>-macro is gone. It was accidentally committed and never did
+anything useful, so this hopefully won&#8217;t concern anyone.</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h4>2.3.0-2<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Switched the CDN to <a class="reference external" href="http://cdnjs.com">cdnjs</a> because <a class="reference external" href="http://bootstrapcdn.com">netdna</a> keeps changing files around too much.</li>
+<li>Introduced <tt class="docutils literal"><span class="pre">BOOTSTRAP_CUSTOM_CSS</span></tt> option.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <a href="http://github.com/mbr/flask-bootstrap"><img style="position: fixed; top: 0; right: 0; border: 0;"
+    src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  
+
+  
+  </div>
+  
+
+  </body>
+</html>
